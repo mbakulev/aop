@@ -1,7 +1,7 @@
 -- liquibase formatted sql
 
 -- changeset mbakulev:4-1
-CREATE SEQUENCE IF NOT EXISTS transaction_sequense START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE IF NOT EXISTS transaction_sequense START WITH 6 INCREMENT BY 50;
 
 -- changeset mbakulev:4-2
 CREATE TABLE IF NOT EXISTS transaction
