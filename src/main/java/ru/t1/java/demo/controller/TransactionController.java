@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.t1.java.demo.aop.HandlingResult;
+import ru.t1.java.demo.aop.LogDataError;
 import ru.t1.java.demo.aop.LogException;
 import ru.t1.java.demo.aop.Track;
 import ru.t1.java.demo.dto.TransactionDto;
@@ -30,12 +31,14 @@ public class TransactionController {
         throw new TransactionException();
     }
 
+    @LogDataError
     @GetMapping(value = "/transaction/{id}")
     public Transaction getTransaction(@PathVariable Long id) throws IOException, InterruptedException {
         System.out.println("Transaction.getTransaction");
         return transactionService.getTransaction(id);
     }
 
+    @LogDataError
     @PostMapping(value = "/transaction")
     public Transaction createTransaction(@RequestBody TransactionDto transactionDto) {
         return transactionService.createTransaction(transactionDto);
