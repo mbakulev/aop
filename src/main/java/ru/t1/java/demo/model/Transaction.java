@@ -1,9 +1,8 @@
 package ru.t1.java.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.math.BigDecimal;
@@ -16,10 +15,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "transaction")
-public class Transaction extends AbstractPersistable<Long> {
-
-    @Column(name = "id")
+public class Transaction {
+    @jakarta.persistence.Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_sequense")
+    @SequenceGenerator(name = "transaction_sequense", sequenceName = "transaction_sequense", allocationSize = 1)
     private Long id;
+
+//    @Column(name = "id")
+//    private Long id;
 
     @Column(name = "account_id")
     private Long accountId;
@@ -27,6 +31,6 @@ public class Transaction extends AbstractPersistable<Long> {
     @Column(name = "amount")
     private BigDecimal amount;
 
-    @Column(name = "dateTime")
+    @Column(name = "timestamp")
     private LocalDateTime dateTime;
 }

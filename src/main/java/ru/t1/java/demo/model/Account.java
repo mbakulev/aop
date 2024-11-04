@@ -1,9 +1,8 @@
 package ru.t1.java.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.math.BigDecimal;
@@ -15,13 +14,18 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "account")
-public class Account extends AbstractPersistable<Long> {
-
-    @Column(name = "id")
+public class Account {
+    @jakarta.persistence.Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_sequense")
+    @SequenceGenerator(name = "account_sequense", sequenceName = "account_sequense", allocationSize = 1)
     private Long id;
 
-    @Column(name = "type")
-    private AccountType type;
+    @Column(name = "client_id")
+    private Long clientId;
+
+    @Column(name = "account_type")
+    private String type;
 
     @Column(name = "balance")
     private BigDecimal balance;
