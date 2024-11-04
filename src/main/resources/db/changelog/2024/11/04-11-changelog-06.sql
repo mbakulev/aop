@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS data_source_error_log
 
 -- changeset mbakulev:6-3
 ALTER TABLE data_source_error_log
-    ADD message VARCHAR(255);
+    ADD message TEXT;
 ALTER TABLE data_source_error_log
-    ADD stacktrace VARCHAR(255);
+    ADD stacktrace TEXT;
 ALTER TABLE data_source_error_log
-    ADD method_signature VARCHAR(255);
+    ADD method_name VARCHAR(255);
