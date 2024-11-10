@@ -24,4 +24,9 @@ public class DataErrorLogServiceImpl implements DataErrorLogService {
 
         repository.save(dataSourceErrorLog);
     }
+
+    @Override
+    public void writeErrorMessage(DataSourceErrorLog dataSourceErrorLog) {
+        repository.save(dataSourceErrorLog);
+    }
 }

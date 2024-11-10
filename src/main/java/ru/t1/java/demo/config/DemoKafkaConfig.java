@@ -25,6 +25,7 @@ import ru.t1.java.demo.kafka.MessageDeserializer;
 import ru.t1.java.demo.dto.AccountDto;
 import ru.t1.java.demo.dto.ClientDto;
 import ru.t1.java.demo.dto.TransactionDto;
+import ru.t1.java.demo.model.DataSourceErrorLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,6 +84,17 @@ public class DemoKafkaConfig<T> {
     }
 
     @Bean
+    public ConsumerFactory<String, DataSourceErrorLog> dataSourceErrorLogConsumerFactory() {
+        Map<String, Object> props = getDefaultProps();
+        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, DataSourceErrorLog.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, MessageDeserializer.class);
+        props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, MessageDeserializer.class.getName());
+        props.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, MessageDeserializer.class);
+
+        return new DefaultKafkaConsumerFactory<>(props);
+    }
+
+    @Bean
     public ConsumerFactory<String, AccountDto> accountConsumerListenerFactory() {
         Map<String, Object> props = getDefaultProps();
         props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "ru.t1.java.demo.dto.AccountDto");
@@ -101,6 +113,13 @@ public class DemoKafkaConfig<T> {
     @Bean
     ConcurrentKafkaListenerContainerFactory<String, ClientDto> kafkaListenerContainerFactory(@Qualifier("consumerListenerFactory") ConsumerFactory<String, ClientDto> consumerFactory) {
         ConcurrentKafkaListenerContainerFactory<String, ClientDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factoryBuilder(consumerFactory, factory);
+        return factory;
+    }
+
+    @Bean
+    ConcurrentKafkaListenerContainerFactory<String, DataSourceErrorLog> dataSourceErrorLogKafkaListenerContainerFactory(@Qualifier("dataSourceErrorLogConsumerFactory") ConsumerFactory<String, DataSourceErrorLog> consumerFactory) {
+        ConcurrentKafkaListenerContainerFactory<String, DataSourceErrorLog> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factoryBuilder(consumerFactory, factory);
         return factory;
     }
