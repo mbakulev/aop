@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.t1.java.demo.dto.AccountDto;
 import ru.t1.java.demo.model.Account;
+import ru.t1.java.demo.model.Transaction;
 import ru.t1.java.demo.repository.AccountRepository;
 import ru.t1.java.demo.service.AccountService;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -44,5 +46,17 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void deleteAccount(Long id) {
         accountRepository.deleteById(id);
+    }
+
+    @Override
+    public void saveAccount(AccountDto accountDto) {
+        Account account = Account.builder()
+                .type(accountDto.getAccountType().toString())
+                .clientId(accountDto.getClientId())
+                .balance(accountDto.getBalance())
+                .build();
+
+        System.out.println("save account: " + account.toString());
+        accountRepository.save(account);
     }
 }

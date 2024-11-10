@@ -22,13 +22,15 @@ t1:
       server: localhost:9092
     consumer:
       group-id: t1-demo
+      account-group-id: t1-demo-account
+      transaction-group-id: t1-demo-transaction
       max.poll.records: 10
     producer:
       enable: true
     topic:
-      client_registration: t1_demo_client_registration
+      client_registration: t1_demo_accounts
       client_id_registered: t1_demo_client_registered
-      client_transactions: t1_demo_client_transactions
+      client_transactions: t1_demo_transactions
       t1_demo_metrics: t1_demo_metrics
       t2_demo_metrics: t2_demo_metrics
 

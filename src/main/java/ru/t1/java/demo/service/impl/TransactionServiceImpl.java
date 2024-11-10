@@ -34,4 +34,16 @@ public class TransactionServiceImpl implements TransactionService {
         System.out.println("Transaction created: " + transaction.getAccountId() + " " + transaction.getAmount() + " " + transaction.getDateTime());
         return transactionRepository.save(transaction);
     }
+
+    @Override
+    public void saveTransaction(TransactionDto transactionDto) {
+        Transaction transaction = Transaction.builder()
+                .accountId(transactionDto.getAccountId())
+                .amount(transactionDto.getAmount())
+                .dateTime(LocalDateTime.now())
+                .build();
+
+        System.out.println("Transaction saved: " + transaction.getAccountId() + " " + transaction.getAmount() + " " + transaction.getDateTime());
+       transactionRepository.save(transaction);
+    }
 }
