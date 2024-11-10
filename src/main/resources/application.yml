@@ -34,3 +34,5 @@ t1:
 
     listener:
       poll-timeout: 1000
+
+  maxExecutionTime: 1000

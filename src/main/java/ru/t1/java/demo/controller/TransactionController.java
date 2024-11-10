@@ -3,10 +3,7 @@ package ru.t1.java.demo.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.java.demo.aop.HandlingResult;
-import ru.t1.java.demo.aop.LogDataError;
-import ru.t1.java.demo.aop.LogException;
-import ru.t1.java.demo.aop.Track;
+import ru.t1.java.demo.aop.*;
 import ru.t1.java.demo.dto.TransactionDto;
 import ru.t1.java.demo.exception.TransactionException;
 import ru.t1.java.demo.model.Account;
@@ -14,6 +11,7 @@ import ru.t1.java.demo.model.Transaction;
 import ru.t1.java.demo.service.TransactionService;
 
 import java.io.IOException;
+import java.util.Random;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,5 +40,17 @@ public class TransactionController {
     @PostMapping(value = "/transaction")
     public Transaction createTransaction(@RequestBody TransactionDto transactionDto) {
         return transactionService.createTransaction(transactionDto);
+    }
+
+    @MetricTimeoutMonitoring
+    @GetMapping("/timeout-aspect-long-execution")
+    public void timeoutAspectLongExecution() throws InterruptedException {
+            Thread.sleep(2000);
+    }
+
+    @MetricTimeoutMonitoring
+    @GetMapping("/timeout-aspect-short-execution")
+    public void timeoutAspectShortExecution() throws InterruptedException {
+        Thread.sleep(500);
     }
 }
