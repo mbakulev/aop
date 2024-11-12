@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import ru.t1.java.demo.dto.enums.AccountStatus;
 
 import java.math.BigDecimal;
 
@@ -29,4 +30,10 @@ public class Account {
 
     @Column(name = "balance")
     private BigDecimal balance;
+
+    @Column(name = "account_status")
+    private String accountStatus;
+
+    @Column(name = "frozen_ammount")
+    private BigDecimal frozenAmount;
 }

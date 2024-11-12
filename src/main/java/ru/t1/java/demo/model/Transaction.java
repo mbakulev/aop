@@ -1,9 +1,11 @@
 package ru.t1.java.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import ru.t1.java.demo.dto.enums.TransactionStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -33,4 +35,7 @@ public class Transaction {
 
     @Column(name = "timestamp")
     private LocalDateTime dateTime;
+
+    @Column(name = "transaction_status")
+    private String transactionStatus;
 }

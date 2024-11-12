@@ -33,6 +33,7 @@ public class TransactionController {
     @GetMapping(value = "/transaction/{id}")
     public Transaction getTransaction(@PathVariable Long id) throws IOException, InterruptedException {
         System.out.println("Transaction.getTransaction");
+        System.out.println(transactionService.getTransaction(id));
         return transactionService.getTransaction(id);
     }
 
