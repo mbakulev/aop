@@ -31,9 +31,9 @@ public class Account {
     @Column(name = "balance")
     private BigDecimal balance;
 
-    @Column(name = "account_status")
+    @Column(name = "status")
     private String accountStatus;
 
-    @Column(name = "frozen_ammount")
+    @Column(name = "frozen_amount")
     private BigDecimal frozenAmount;
 }

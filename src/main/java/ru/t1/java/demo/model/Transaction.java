@@ -36,6 +36,6 @@ public class Transaction {
     @Column(name = "timestamp")
     private LocalDateTime dateTime;
 
-    @Column(name = "transaction_status")
+    @Column(name = "status")
     private String transactionStatus;
 }

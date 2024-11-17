@@ -39,8 +39,8 @@ public class TransactionController {
 
     @LogDataError
     @PostMapping(value = "/transaction")
-    public Transaction createTransaction(@RequestBody TransactionDto transactionDto) {
-        return transactionService.createTransaction(transactionDto);
+    public void createTransaction(@RequestBody TransactionDto transactionDto) {
+        transactionService.createTransaction(transactionDto);
     }
 
     @MetricTimeoutMonitoring

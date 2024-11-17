@@ -8,6 +8,7 @@ import ru.t1.java.demo.model.Transaction;
 import ru.t1.java.demo.repository.AccountRepository;
 import ru.t1.java.demo.service.AccountService;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -58,5 +59,26 @@ public class AccountServiceImpl implements AccountService {
 
         System.out.println("save account: " + account.toString());
         accountRepository.save(account);
+    }
+
+    @Override
+    public String checkAccountStatus(Long id) {
+        Optional<Account> account = accountRepository.findById(id);
+        if (account.isPresent()) {return account.get().getType().toString();}
+        return null;
+    }
+
+    @Override
+    public Account changeAccountBalance(Long id, BigDecimal transactionAmount) {
+        Account account = getAccount(id);
+        if (account != null) {
+            BigDecimal oldBalance = account.getBalance();
+            BigDecimal newBalance = oldBalance.add(transactionAmount);
+            account.setBalance(newBalance);
+
+            return accountRepository.save(account);
+        }
+
+        return null;
     }
 }
