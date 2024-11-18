@@ -64,7 +64,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String checkAccountStatus(Long id) {
         Optional<Account> account = accountRepository.findById(id);
-        if (account.isPresent()) {return account.get().getType().toString();}
+        if (account.isPresent()) {return account.get().getAccountStatus().toString();}
         return null;
     }
 
@@ -80,5 +80,17 @@ public class AccountServiceImpl implements AccountService {
         }
 
         return null;
+    }
+
+    @Override
+    public void setFrozenAmount(Long id, BigDecimal amount) {
+        Account account = getAccount(id);
+        if (account != null) {
+            BigDecimal oldFrozenAmount = account.getFrozenAmount();
+            BigDecimal newFrozenAmount = oldFrozenAmount.add(amount);
+            account.setFrozenAmount(newFrozenAmount);
+
+            accountRepository.save(account);
+        }
     }
 }

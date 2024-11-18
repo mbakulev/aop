@@ -24,6 +24,8 @@ t1:
       group-id: t1-demo
       account-group-id: t1-demo-account
       transaction-group-id: t1-demo-transaction
+      t1_demo_transaction_accept: t1_demo_transaction_accept
+      t1_demo_transaction_result: t1_demo_transaction_result
       max.poll.records: 10
     producer:
       enable: true
@@ -33,6 +35,8 @@ t1:
       client_transactions: t1_demo_transactions
       t1_demo_metrics: t1_demo_metrics
       t2_demo_metrics: t2_demo_metrics
+      t1_demo_transaction_accept: t1_demo_transaction_accept
+      t1_demo_transaction_result: t1_demo_transaction_result
 
     listener:
       poll-timeout: 1000

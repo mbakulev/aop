@@ -14,4 +14,5 @@ public interface AccountService {
     void saveAccount(AccountDto account);
     String checkAccountStatus(Long id);
     Account changeAccountBalance(Long id, BigDecimal balance);
+    void setFrozenAmount(Long id, BigDecimal amount);
 }

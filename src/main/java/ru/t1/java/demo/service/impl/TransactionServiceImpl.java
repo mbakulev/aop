@@ -72,4 +72,12 @@ public class TransactionServiceImpl implements TransactionService {
         System.out.println("Transaction saved: " + transaction.getAccountId() + " " + transaction.getAmount() + " " + transaction.getDateTime() + " " + transaction.getTransactionStatus());
         return transactionRepository.save(transaction);
     }
+
+    @Override
+    public void updateTransactionStatus(Long id, String status) {
+        Transaction transaction = transactionRepository.findById(id).orElse(null);
+        if (transaction != null) {
+            transaction.setTransactionStatus(status);
+        }
+    }
 }

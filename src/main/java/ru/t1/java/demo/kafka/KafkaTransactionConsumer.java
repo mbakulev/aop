@@ -37,11 +37,12 @@ public class KafkaTransactionConsumer {
 
         try {
             out.println("received dto " + transactionDtos);
-
+            out.println(accountService.checkAccountStatus(transactionDtos.getAccountId()));
             if (accountService.checkAccountStatus(transactionDtos.getAccountId()).equals("OPEN")) {
                 Transaction transaction = transactionService.saveTransactionWithStatus(transactionDtos, "REQUESTED");
                 Account account = accountService.changeAccountBalance(transactionDtos.getAccountId(), transactionDtos.getAmount());
 
+                out.println("QQQQQQQ");
                 TransactionAccept transactionAccept = TransactionAccept.builder()
                         .transactionId(transaction.getId())
                         .transactionAmount(transaction.getAmount())
@@ -51,6 +52,7 @@ public class KafkaTransactionConsumer {
                         .accountBalance(account.getBalance())
                         .build();
 
+                out.println(transactionAccept);
                 kafkaTemplate.send("t1_demo_transaction_accept", UUID.randomUUID().toString(), transactionAccept);
                 kafkaTemplate.flush();
             }

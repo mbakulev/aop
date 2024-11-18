@@ -8,4 +8,5 @@ public interface TransactionService {
     void createTransaction(TransactionDto dto);
     void saveTransaction(TransactionDto dto);
     Transaction saveTransactionWithStatus(TransactionDto dto, String status);
+    void updateTransactionStatus(Long id, String status);
 }
