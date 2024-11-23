@@ -42,3 +42,5 @@ t1:
       poll-timeout: 1000
 
   maxExecutionTime: 1000
+  maxTransactionsPerInterval: 2
+  transactionsInterval: 60 # time in seconds

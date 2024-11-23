@@ -12,6 +12,7 @@ import ru.t1.java.demo.service.TransactionService;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.UUID;
 
 @Service
@@ -79,5 +80,12 @@ public class TransactionServiceImpl implements TransactionService {
         if (transaction != null) {
             transaction.setTransactionStatus(status);
         }
+    }
+
+    @Override
+    public Long userTransactionsCountInInterval(Long userId, LocalDateTime dateTime) {
+        Collection<Transaction> transactions = transactionRepository.findByUserIdAndDateTimeGreaterThan(userId, dateTime);
+        Long transactionsCount = (long) transactions.size();
+        return transactionsCount;
     }
 }
