@@ -73,7 +73,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = getAccount(id);
         if (account != null) {
             BigDecimal oldBalance = account.getBalance();
-            BigDecimal newBalance = oldBalance.add(transactionAmount);
+            BigDecimal newBalance = oldBalance.min(transactionAmount);
             account.setBalance(newBalance);
 
             return accountRepository.save(account);
