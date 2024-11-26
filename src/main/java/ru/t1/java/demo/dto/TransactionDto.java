@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.t1.java.demo.dto.enums.TransactionStatus;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -23,4 +24,7 @@ public class TransactionDto implements Serializable{
 
     @JsonProperty("amount")
     private BigDecimal amount;
+
+    @JsonProperty("transaction_status")
+    private String transactionStatus;
 }

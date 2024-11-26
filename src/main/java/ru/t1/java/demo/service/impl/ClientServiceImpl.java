@@ -13,6 +13,7 @@ import ru.t1.java.demo.model.Client;
 import ru.t1.java.demo.repository.ClientRepository;
 import ru.t1.java.demo.service.ClientService;
 import ru.t1.java.demo.util.ClientMapper;
+import ru.t1.java.demo.kafka.KafkaClientProducer;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +26,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository repository;
+    private final KafkaClientProducer kafkaClientProducer;
+
+    @Override
+    public void registerClients(List<Client> clients) {
+        repository.saveAll(clients)
+                .stream()
+                .map(Client::getId)
+                .forEach(kafkaClientProducer::send);
+    }
 
     @PostConstruct
     void init() {
